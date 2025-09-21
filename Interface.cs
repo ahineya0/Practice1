@@ -151,7 +151,7 @@ namespace Practice_1.UI
                         var f = files[i];
                         var date = f.Dt.ToString("dd.MM.yy");
                         var time = f.Dt.ToString("HH:mm");
-                        var name = f.Name.ToString();
+                        var name = f.GetName(wName - 4);
                         var type = f.Typ.ToString();
                         var size = f.Size.ToString();
                         line = FitString(name, wName - 4) + FitStringOp(type, 4) + ' ' + FitStringOp(size, wSize) + ' ' + FitString(date, wDate + 1) + ' ' + FitString(time, wTime);
@@ -178,7 +178,7 @@ namespace Practice_1.UI
                     int cellY = listTop + r;
 
                     var f = files[i];
-                    var name = f.Name.ToString();
+                    var name = f.GetName(colW - 4);
                     var type = f.Typ.ToString();
 
                     WriteAt(FitString(name, colW - 4) + FitStringOp(type, 4), cellX, cellY);
