@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 using File = Practice_1.Form.File;
 
 namespace Practice_1.UI
@@ -30,6 +33,7 @@ namespace Practice_1.UI
         // Метод внесения строк по "координатам" консоли
         public static void WriteAt(string s, int x, int y)
         {
+            if (y >= Console.BufferHeight || x >= Console.BufferWidth) return;
             Console.SetCursorPosition(x, y);
             Console.Write(s);
         }
@@ -106,25 +110,53 @@ namespace Practice_1.UI
 
         public static void DrawHead()
         {
-            Console.BackgroundColor = ConsoleColor.Cyan;
+            Console.BackgroundColor = ConsoleColor.DarkCyan;
             Console.ForegroundColor = ConsoleColor.Black;
             WriteAt(FitString("    Левая     Файл     Диск    Команды    Правая", WindowWidth), 0, 0);
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            WriteAt("Л", 4, 0);
+            WriteAt("Ф", 14, 0);
+            WriteAt("Д", 23, 0);
+            WriteAt("К", 31, 0);
+            WriteAt("П", 42, 0);
+            Console.BackgroundColor = ConsoleColor.Cyan;
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
             WriteAt(DateTime.Now.ToString("HH:mm"), WindowWidth - 5, 0);
         }
 
         public static void DrawBottomBar()
         {
+            WriteAt("C:\\NC", 20 - 2, 1);
+            Console.BackgroundColor = ConsoleColor.Cyan;
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            WriteAt("C:\\NC", 53, 1);
+
             Console.BackgroundColor = ConsoleColor.DarkBlue;
+            Console.ForegroundColor = ConsoleColor.Gray;
             WriteAt(FitString("..", 19), 1, WindowHeight - 4);
-            WriteAt("КАТАЛОГ " + DateTime.Now.ToString("dd.MM HH:mm"), 20, WindowHeight - 4);
+            WriteAt("\u25BAКАТАЛОГ\u25C4 " + DateTime.Now.ToString("dd.MM HH:mm"), 18, WindowHeight - 4);
 
             WriteAt(FitString("..", 19), 41, WindowHeight - 4);
-            WriteAt("КАТАЛОГ " + DateTime.Now.ToString("dd.MM HH:mm"), 60, WindowHeight - 4);
+            WriteAt("\u25BAКАТАЛОГ\u25C4 " + DateTime.Now.ToString("dd.MM HH:mm"), 58, WindowHeight - 4);
 
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
-            WriteAt("С:\\NC", 0, WindowHeight - 2);
-            WriteAt("1Помощь 2Вызов 3Чтение 4Правка 5Копия 6НовИмя 7НовКат 8Удал-е 9Меню 10Выход", 0, WindowHeight - 1);
+            WriteAt("С:\\NC>", 0, WindowHeight - 2);
+            for (int i = 0; i < 9; i++)
+            {
+                WriteAt((i+1).ToString(), i * 8, WindowHeight - 1);
+            }
+            Console.BackgroundColor = ConsoleColor.DarkCyan;
+            Console.ForegroundColor = ConsoleColor.Black;
+            string[] lastWords = {"Помощь", "Вызов ", "Чтение", "Правка", "Копия ", "НовИмя", "НовКат", "Удал-е", "Меню  ", "Выход "};
+            WriteAt(lastWords[0], 1, WindowHeight - 1);
+            for (int i = 1; i < 10; i++)
+            {
+                WriteAt(lastWords[i], i*8 + 1, WindowHeight - 1);
+            }
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
+            WriteAt(" 10", 70, WindowHeight - 1);
         }
 
         public static void RenderFileList(List<File> files, int x, int y, int w, int h, int noc, string panelTitle, string columnNames, bool detailed)
@@ -141,9 +173,16 @@ namespace Practice_1.UI
             {
                 int wName = 9, wSize = 9, wDate = 9, wTime = 8;
 
+                Console.BackgroundColor = ConsoleColor.Cyan;
+                Console.ForegroundColor = ConsoleColor.DarkBlue;
+                string catalogLine = FitString("..", wName) + ' ' + FitStringOp("►КАТАЛОГ◄", wSize) + ' ' + FitString("11.10.02", wDate) + ' ' + FitString("19:48", wTime);
+                WriteAt(FitString(catalogLine, w - 2), x + 1, listTop);
+
+                Console.BackgroundColor = ConsoleColor.DarkBlue;
+                Console.ForegroundColor = ConsoleColor.Gray;
                 for (int i = 0; i < rows; i++)
                 {
-                    int yy = listTop + i;
+                    int yy = listTop + 1 + i; // Чтобы пропустить строчку с КАТАЛОГ
                     string line;
 
                     if (i < files.Count)

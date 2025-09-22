@@ -53,13 +53,22 @@ namespace Practice_1.SampleData
         {
             new("123view", "exe", 128330, default(DateTime)),
             new("4372ansi", "set", 255, new DateTime(2005,5,25,9,55, 0)),
+            new("8502ansi", "set", 255, new DateTime(2005,5,25,9,55, 0)),
             new("8623ansi", "set", 255, new DateTime(2005,5,25,9,55, 0)),
-            new("ajaccgdd", "exe", 4173902, new DateTime(2005,5,25,9,55, 0)),
-            new("ansi2347", "set", 255, new DateTime(2005,5,25,9,55, 0)),
-            new("ansicr", "set", 255, new DateTime(2005,5,25,9,55, 0)),
+            new("8652ansi", "set", 255, new DateTime(2005,5,25,9,55, 0)),
+            new("8662ansi", "set", 255, new DateTime(2005,5,25,9,55, 0)),
+            new("Ajaccgdo", "exe", 4173902, new DateTime(2005,5,25,9,02, 0)),
+            new("ansi2437", "set", 255, new DateTime(2005,5,25,9,55, 0)),
+            new("ansi2850", "set", 255, new DateTime(2005,5,25,9,55, 0)),
+            new("ansi2863", "set", 255, new DateTime(2005,5,25,9,55, 0)),
+            new("ansi2865", "set", 255, new DateTime(2005,5,25,9,55, 0)),
+            new("ansi2866", "set", 255, new DateTime(2005,5,25,9,55, 0)),
+            new("arcview", "exe", 81738, new DateTime(2005,5,25,9,55, 0)),
+            new("ansi2437", "exe", 255, new DateTime(2005,5,25,9,55, 0)),
             new("arc", "nss", 644, new DateTime(2005,5,25,9,55, 0)),
-            new("bug", "nss", 45, new DateTime(2005,5,25,9,55, 0)),
-            new("bungee", "nss", 1, new DateTime(2005,5,25,9,55, 0)),
+            new("bitmap", "exe", 54805, new DateTime(2005,5,25,9,55, 0)),
+            new("bug", "nss", 16133, new DateTime(2005,5,25,9,55, 0)),
+            new("bungee", "nss",41914, new DateTime(2005,5,25,9,55, 0)),
         };
     }
 }

@@ -33,7 +33,7 @@ namespace Practice_1
             // Нижняя строка
             Interface.DrawBottomBar();
 
-            Console.SetCursorPosition(5, Interface.WindowHeight - 2); // Курсор у "ввода"
+            Console.SetCursorPosition(6, Interface.WindowHeight - 2); // Курсор у "ввода"
             Console.ReadKey(true); // Чтобы не завершилось
         }
     }
