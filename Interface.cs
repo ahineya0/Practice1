@@ -25,8 +25,8 @@ namespace Practice_1.UI
         const char CRB = '\u255D'; // угол правый низ
         const char SH = '\u2500'; // разделитель горизонтальный
         const char SV = '\u2502'; // разделитель вертикальный
-        const char SU = '\u2564'; // разделитель верх
-        const char SD = '\u2534'; // разделитель низ
+        const char ST = '\u2564'; // разделитель верх
+        const char SB = '\u2534'; // разделитель низ
         const char SL = '\u255F'; // разделитель лево
         const char SR = '\u2562'; // разделитель право
 
@@ -87,19 +87,18 @@ namespace Practice_1.UI
             DrawSepHLine(x + 1, sepRow, width - 2);
             WriteAt(SR.ToString(), x + width - 1, sepRow);
 
-            int gap = 1;
             int colW;
-            if ((innerW - (numOfCol - 1) * gap) % numOfCol == 0) colW = (innerW - (numOfCol - 1) * gap) / numOfCol;
-            else colW = ((innerW - (numOfCol - 1) * gap) / numOfCol) + 1;
+            if ((innerW - (numOfCol - 1)) % numOfCol == 0) colW = (innerW - (numOfCol - 1)) / numOfCol;
+            else colW = ((innerW - (numOfCol - 1)) / numOfCol) + 1;
 
             // вертикальные разделители
             for (int k = 1; k <= numOfCol - 1; k++)
             {
                 int xSep = x + k * (colW + 1); // координата разделителя
-                WriteAt(SU.ToString(), xSep, y);
+                WriteAt(ST.ToString(), xSep, y);
                 for (int j = y + 1; j <= sepRow - 1; j++)
                     WriteAt(SV.ToString(), xSep, j);
-                WriteAt(SD.ToString(), xSep, sepRow);
+                WriteAt(SB.ToString(), xSep, sepRow);
             }
 
             // низ
@@ -126,11 +125,6 @@ namespace Practice_1.UI
 
         public static void DrawBottomBar()
         {
-            WriteAt("C:\\NC", 20 - 2, 1);
-            Console.BackgroundColor = ConsoleColor.Cyan;
-            Console.ForegroundColor = ConsoleColor.DarkBlue;
-            WriteAt("C:\\NC", 53, 1);
-
             Console.BackgroundColor = ConsoleColor.DarkBlue;
             Console.ForegroundColor = ConsoleColor.Gray;
             WriteAt(FitString("..", 19), 1, WindowHeight - 4);
@@ -143,27 +137,23 @@ namespace Practice_1.UI
             Console.ForegroundColor = ConsoleColor.White;
             WriteAt("С:\\NC>", 0, WindowHeight - 2);
             for (int i = 0; i < 9; i++)
-            {
-                WriteAt((i+1).ToString(), i * 8, WindowHeight - 1);
-            }
+                WriteAt((i + 1).ToString(), i * 8, WindowHeight - 1);
             Console.BackgroundColor = ConsoleColor.DarkCyan;
             Console.ForegroundColor = ConsoleColor.Black;
             string[] lastWords = {"Помощь", "Вызов ", "Чтение", "Правка", "Копия ", "НовИмя", "НовКат", "Удал-е", "Меню  ", "Выход "};
             WriteAt(lastWords[0], 1, WindowHeight - 1);
             for (int i = 1; i < 10; i++)
-            {
                 WriteAt(lastWords[i], i*8 + 1, WindowHeight - 1);
-            }
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
             WriteAt(" 10", 70, WindowHeight - 1);
         }
 
-        public static void RenderFileList(List<File> files, int x, int y, int w, int h, int noc, string panelTitle, string columnNames, bool detailed)
+        public static void RenderFileList(List<File> files, int x, int y, int w, int h, int noc, string columnNames, bool detailed)
         {
+            Console.BackgroundColor = ConsoleColor.DarkBlue;
             Console.ForegroundColor = ConsoleColor.Yellow;
             WriteAt(FitString(columnNames, w - 2), x + 1, y + 1);
-            Console.BackgroundColor = ConsoleColor.DarkBlue;
             Console.ForegroundColor = ConsoleColor.Gray;
 
             int listTop = y + 2; // Верх списка
@@ -187,12 +177,11 @@ namespace Practice_1.UI
 
                     if (i < files.Count)
                     {
-                        var f = files[i];
-                        var date = f.Dt.ToString("dd.MM.yy");
-                        var time = f.Dt.ToString("HH:mm");
-                        var name = f.GetName(wName - 4);
-                        var type = f.Typ.ToString();
-                        var size = f.Size.ToString();
+                        var date = files[i].Dt.ToString("dd.MM.yy");
+                        var time = files[i].Dt.ToString("HH:mm");
+                        var name = files[i].GetName(wName - 4);
+                        var type = files[i].Typ.ToString();
+                        var size = files[i].Size.ToString();
                         line = FitString(name, wName - 4) + FitStringOp(type, 4) + ' ' + FitStringOp(size, wSize) + ' ' + FitString(date, wDate + 1) + ' ' + FitString(time, wTime);
                     }
                     else line = new string(' ', w - 2);
@@ -216,9 +205,8 @@ namespace Practice_1.UI
                     int cellX = x + 1 + c * (colW + gap);
                     int cellY = listTop + r;
 
-                    var f = files[i];
-                    var name = f.GetName(colW - 4);
-                    var type = f.Typ.ToString();
+                    var name = files[i].GetName(colW - 4);
+                    var type = files[i].Typ.ToString();
 
                     WriteAt(FitString(name, colW - 4) + FitStringOp(type, 4), cellX, cellY);
                 }
@@ -226,6 +214,11 @@ namespace Practice_1.UI
 
             // Рисуем рамку поверх всего этого дела
             DrawFrame(x, y, w, h, noc);
+
+            WriteAt("C:\\NC", 20 - 2, 1);
+            Console.BackgroundColor = ConsoleColor.Cyan;
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            WriteAt("C:\\NC", 53, 1);
         }
     }
 }
